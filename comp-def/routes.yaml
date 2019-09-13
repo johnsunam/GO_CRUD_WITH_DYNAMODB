@@ -1,0 +1,30 @@
+packages:
+  - github.com/graniticio/granitic/v2/ws/handler
+  - github.com/graniticio/granitic/v2/validate
+  - personApp/endpoint/person
+components:
+  getPersonLogic:
+    type: person.GetPersonLogic
+    EnvLabel: "$environment.label(John)"
+  getPersonHandler:
+    type: handler.WsHandler
+    HTTPMethod: GET
+    Logic: ref:getPersonLogic
+    PathPattern: "^/person/([\\w]+)[/]?$"
+    BindPathParams:
+      - NAME
+    FieldQueryParam:
+      NormaliseName: normalise
+  addPersonLogic:
+    type: person.AddPersonLogic
+  addPersonHandler:
+    type: handler.WsHandler
+    HTTPMethod: POST
+    Logic: ref:addPersonLogic
+    AutoValidator: "+submitUserValidator"
+    PathPattern: "^/person"
+  submitUserValidator:
+    type: validate.RuleValidator
+    DefaultErrorCode: INVALID_USER
+    Rules: "$submitUserRules"
+    

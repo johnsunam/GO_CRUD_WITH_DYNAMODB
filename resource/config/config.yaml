@@ -1,0 +1,23 @@
+Facilities:
+  HTTPServer: true
+  JSONWs: true
+  ServiceErrorManager: true
+HTTPServer:
+  Address: 0.0.0.0
+  Port: 8002
+  AccessLogging: true
+  AccessLog:
+    LogLinePreset: "framework"
+ApplicationLogger:
+  GlobalLogLevel: INFO
+submitUserRules: 
+  - ["Name", "STR:INVALID_NAME", "REQ:INVALID_NAME", "HARDTRIM", "LEN:2-100"]
+  - ["Age", "INT:INVALID_AGE", "REQ:INVALID_AGE"]
+  - ["Gender", "STR:INVALID_GENDER", "REQ:INVALID_GENDER", "HARDTRIM", "LEN:1-2"]
+serviceErrors:
+  - ["C", "INVALID_NAME", "Name is a required field and should be a string"]
+  - ["C", "INVALID_AGE", "Age is a required field and should be a Integer"]
+  - ["C", "INVALID_GENDER", "Gender is a required field and should be a string"]
+  - ["C", "INVALID_USER", "Something went wrong"]
+  
+
